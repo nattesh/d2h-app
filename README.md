@@ -12,8 +12,8 @@ Users can surf between the following sections:
  - Wordcloud: your most used words in Dota 2 chat
 
 Also:
-_ Hero details: tap on a hero to see his abilities, stats and lore
-_ Item details: tap on am item to see its stats, recipe and lore
+ - Hero details: tap on a hero to see his abilities, stats and lore
+ - Item details: tap on am item to see its stats, recipe and lore
 
 ## Configuration
 This is a Ionic + Cordova app, so, in order to configure your development environment, just run `npm install` and you're ready. 
