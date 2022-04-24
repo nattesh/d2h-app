@@ -4,12 +4,12 @@ Based on OpenDota APIs this app will let you review your matches and your friend
 You can also check heroes and items details and their stats and lore.
 
 Users can surf between the following sections:
-_ Overview: your main info and latest matches
-_ Matches: the complete list of your matches. You can also swipe left on every match in order to show the list of the matches played only with that hero. Swipe again to remove the filter
-_ Heroes: a simple review of every hero usage (total games, wins, losses and win percentage). Selecting a hero you will be able to see alle the matches played with it. Swipe left to remove filter
-_ Friends: list of your peers and a small recap of your matches played together. Select a friend to see his overview screen
-_ Match details: select a match to see its details (such as players, heroes, match type, items and more)
-_ Wordcloud: your most used words in Dota 2 chat
+ - Overview: your main info and latest matches
+ - Matches: the complete list of your matches. You can also swipe left on every match in order to show the list of the matches played only with that hero. Swipe again to remove the filter
+ - Heroes: a simple review of every hero usage (total games, wins, losses and win percentage). Selecting a hero you will be able to see alle the matches played with it. Swipe left to remove filter
+ - Friends: list of your peers and a small recap of your matches played together. Select a friend to see his overview screen
+ - Match details: select a match to see its details (such as players, heroes, match type, items and more)
+ - Wordcloud: your most used words in Dota 2 chat
 
 Also:
 _ Hero details: tap on a hero to see his abilities, stats and lore
@@ -49,4 +49,9 @@ There are no others back-end logics or services, just search for a player id and
 ![item](https://i.ibb.co/DKpZ70X/item.png)
 
 
+## Credits
+### ©Valve Corporation - STEAM®
+All the credits and intellectual property about the assets, images, lore, and any other content about Dota®2 existing in this app go to
+[© Valve Corporation](https://www.valvesoftware.com/) and to [STEAM®](https://store.steampowered.com/)
 
+Valve, the Valve logo, Steam, the Steam logo, Source, the Source logo, Valve Source and Dota are trademarks and/or registered trademarks of Valve Corporation.
