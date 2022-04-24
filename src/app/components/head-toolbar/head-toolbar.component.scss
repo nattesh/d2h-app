@@ -1,0 +1,14 @@
+.head-toolbar {
+  --background: var(--ion-item-background);
+  background-color: var(--ion-item-background);
+  --border-width: 0!important;
+}
+  
+.title {
+  margin: 3% 5% 5%;
+  font-weight: bold;
+}
+
+.id-span {
+  font-size: small;
+}

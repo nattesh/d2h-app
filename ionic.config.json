@@ -1,0 +1,7 @@
+{
+  "name": "Dota2Handbook",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

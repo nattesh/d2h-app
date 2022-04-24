@@ -1,0 +1,102 @@
+<app-head-toolbar title="{{match?.gameMode?.name|titlecase}}" [id]="match?.id"></app-head-toolbar>
+<ion-content #matchContainer>
+  <div class="main-container" *ngIf="match">
+    <ion-row class="m-bottom">
+      <ion-col size="5" class="radiant-row">
+        <ion-row>
+          <ion-col size="8">
+            Radiant
+            <ion-icon *ngIf="match.radiantWin" name="trophy-sharp"></ion-icon>
+          </ion-col>
+          <ion-col class="ion-text-end" size="4">
+            {{match.radiantScore}}
+          </ion-col>
+        </ion-row>
+      </ion-col>
+      <ion-col size="2" class="ion-text-center">
+        -
+      </ion-col>
+      <ion-col size="5" class="dire-row">
+        <ion-row>
+          <ion-col size="4">{{match.direScore}}</ion-col>
+          <ion-col class="ion-text-end" size="8">
+            <ion-icon *ngIf="!match.radiantWin" name="trophy-sharp"></ion-icon>
+            Dire
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="match" class="ion-text-center">
+      <ion-col size="12" class="ion-text-center">
+        {{getDuration(match?.duration)}}
+      </ion-col>
+    </ion-row>
+  </div>
+  <div class="main-container" *ngIf="!match">
+    <ion-row class="m-bottom">
+      <ion-col size="5" class="radiant-row">
+        <ion-row>
+          <ion-col size="8">
+            <ion-skeleton-text></ion-skeleton-text>
+          </ion-col>
+          <ion-col class="ion-text-end" size="4">
+            <ion-skeleton-text></ion-skeleton-text>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+      <ion-col size="2" class="ion-text-center">
+        -
+      </ion-col>
+      <ion-col size="5" class="dire-row">
+        <ion-row>
+          <ion-col size="4">
+            <ion-skeleton-text></ion-skeleton-text>
+          </ion-col>
+          <ion-col class="ion-text-end" size="8">
+            <ion-skeleton-text></ion-skeleton-text>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-text-center">
+      <ion-col size="12" class="ion-text-center">
+        <ion-skeleton-text></ion-skeleton-text>
+      </ion-col>
+    </ion-row>
+  </div>
+  <div *ngIf="match">
+    <ion-segment [value]="segment" (ionChange)="changeSegment($event)" class="segment">
+      <ion-segment-button value="overview">
+        <ion-label>Overview</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="graphs">
+        <ion-label>Stats</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="map">
+        <ion-label>Maps</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+    <ion-list *ngIf="segment === 'overview'">
+      <ion-list-header>
+        <!--<img src="../../../assets/radiant.png" class="img-dim"/>-->
+        Radiant</ion-list-header>
+      <app-team-details [team]="radiantTeam"></app-team-details>
+      <ion-list-header class="team-header">
+        <!--<img src="../../../assets/dire.png" class="img-dim"/>&nbsp;-->
+        Dire</ion-list-header>
+      <app-team-details [team]="direTeam"></app-team-details>
+    </ion-list> 
+    <app-graphs *ngIf="segment === 'graphs'" [match]="match"></app-graphs>
+    <app-maps *ngIf="segment === 'map'" [match]="match"></app-maps>
+  </div>
+  <ion-list *ngIf="!match">
+    <ion-list-header>
+      <ion-skeleton-text></ion-skeleton-text>
+    </ion-list-header>
+    <app-team-details></app-team-details>
+    <ion-list-header class="team-header">
+      <ion-skeleton-text></ion-skeleton-text>
+    </ion-list-header>
+    <app-team-details (lastIsOpen)="scrollBottom()"></app-team-details>
+  </ion-list>  
+</ion-content>

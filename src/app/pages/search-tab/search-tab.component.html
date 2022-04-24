@@ -1,0 +1,32 @@
+<app-head-toolbar [title]="'Search'"></app-head-toolbar>
+<ion-content class="container">
+    <div class="content">
+        <ion-row>
+            <ion-col class="center-content" size="12">
+                <div class="log-input">
+                    <ion-input  placeholder="Insert a player ID" [(ngModel)]="inputStr"></ion-input>
+                </div>
+                <br>
+                <ion-spinner *ngIf="loading" name="dots"></ion-spinner>
+                <ion-button color="dark" fill="outline" (click)="searchPlayer()" *ngIf="!loading"
+                        [disabled]="!inputStr || inputStr == ''">Search player</ion-button>
+                <br>
+                <br>
+            </ion-col>
+        </ion-row>
+        <br>
+        <div style="text-align: center;">or</div>
+        <br>
+        <ion-row>
+            <ion-col class="center-content" size="12">
+                <div class="log-input">
+                    <ion-input  placeholder="Insert a match ID" [(ngModel)]="inputMatch"></ion-input>
+                </div>
+                <br>
+                <ion-spinner *ngIf="loading" name="dots"></ion-spinner>
+                <ion-button color="dark" fill="outline" (click)="searchMatch()" *ngIf="!loading"
+                        [disabled]="!inputMatch || inputMatch == ''">Search match</ion-button>
+            </ion-col>
+        </ion-row>
+    </div>
+</ion-content>

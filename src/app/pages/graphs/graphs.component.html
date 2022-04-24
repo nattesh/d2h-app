@@ -1,0 +1,50 @@
+<ion-select class="select" value="{{graphSelected}}" [interface]="'action-sheet'" (ionChange)="changeGraph($event)">
+  <ion-select-option value="net">Net worth</ion-select-option>
+  <ion-select-option value="kills">Kills</ion-select-option>
+  <ion-select-option value="hd">Hero damage</ion-select-option>
+  <ion-select-option value="td">Tower damage</ion-select-option>
+</ion-select>
+<ion-list *ngIf="match && graphSelected === 'net'" class="list-net" lines="none">
+  <ion-item *ngFor="let item of sortedNet" class="p5">
+    <ion-avatar (click)="openHeroDetailModal(item.hero.id, $event)">
+      <ion-img src="{{'https://cdn.cloudflare.steamstatic.com' + item.hero?.img}}"></ion-img>
+    </ion-avatar>
+    <ion-label>
+      <h2 class="net-label">{{item.val}}</h2>
+      <ion-progress-bar class="progress ml" color="{{item.isRadiant ? 'success' : 'danger'}}" [value]="percent(item.val, 'net')"></ion-progress-bar>
+    </ion-label>
+  </ion-item>
+</ion-list>
+<ion-list *ngIf="match && graphSelected === 'kills'" class="list-net" lines="none">
+  <ion-item *ngFor="let item of sortedKills" class="p5">
+    <ion-avatar (click)="openHeroDetailModal(item.hero.id, $event)">
+      <ion-img src="{{'https://cdn.cloudflare.steamstatic.com' + item.hero?.img}}"></ion-img>
+    </ion-avatar>
+    <ion-label>
+      <h2 class="label">{{item.val}}</h2>
+      <ion-progress-bar class="progress ml" color="{{item.isRadiant ? 'success' : 'danger'}}" value="{{percent(item.val, 'kills')}}"></ion-progress-bar>
+    </ion-label>
+  </ion-item>
+</ion-list>
+<ion-list *ngIf="match && graphSelected === 'hd'" class="list-net" lines="none">
+  <ion-item *ngFor="let item of sortedHd" class="p5">
+    <ion-avatar (click)="openHeroDetailModal(item.hero.id, $event)">
+      <ion-img src="{{'https://cdn.cloudflare.steamstatic.com' + item.hero?.img}}"></ion-img>
+    </ion-avatar>
+    <ion-label>
+      <h2 class="label">{{item.val}}</h2>
+      <ion-progress-bar class="progress ml" color="{{item.isRadiant ? 'success' : 'danger'}}" value="{{percent(item.val, 'hd')}}"></ion-progress-bar>
+    </ion-label>
+  </ion-item>
+</ion-list>
+<ion-list *ngIf="match && graphSelected === 'td'" class="list-net" lines="none">
+  <ion-item *ngFor="let item of sortedTd" class="p5">
+    <ion-avatar (click)="openHeroDetailModal(item.hero.id, $event)">
+      <ion-img src="{{'https://cdn.cloudflare.steamstatic.com' + item.hero?.img}}"></ion-img>
+    </ion-avatar>
+    <ion-label>
+      <h2 class="label">{{item.val}}</h2>
+      <ion-progress-bar class="progress ml" color="{{item.isRadiant ? 'success' : 'danger'}}" value="{{percent(item.val, 'td')}}"></ion-progress-bar>
+    </ion-label>
+  </ion-item>
+</ion-list>

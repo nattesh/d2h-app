@@ -1,0 +1,31 @@
+.main-container {
+  background-color: var(--ion-item-background);
+  padding-top: 1vh;
+}
+
+.radiant-row {
+  border-bottom: 2px solid var(--ion-color-success-tint);
+  min-height: 5vh;
+}
+
+.dire-row {
+  border-bottom: 2px solid var(--ion-color-danger-tint);
+  min-height: 5vh;
+}
+
+.m-bottom {
+  margin-bottom: 1vh
+}
+
+.img-dim {
+  max-height: 30px;
+}
+
+.team-header {
+  margin-top: 5%;
+}
+
+.segment {
+  width: 90%;
+  margin: 5%!important;
+}

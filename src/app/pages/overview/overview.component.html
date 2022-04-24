@@ -1,0 +1,195 @@
+<app-head-toolbar [title]="player?.profile.personaName" [id]="playerId"></app-head-toolbar>
+<ion-content id="container">
+  <ion-refresher #refresher slot="fixed" pullFactor="0.5" pullMin="100" pullMax="200" (ionRefresh)="doRefresh()">
+    <ion-refresher-content pullingIcon="arrow-dropdown"
+                           pullingText="Pull to refresh"
+                           refreshingSpinner="dots"
+                           refreshingText="Refreshing..."></ion-refresher-content>
+  </ion-refresher>
+
+  <div *ngIf="!player || onLoading" class="profile-section">
+    <ion-grid>
+      <ion-row>
+        <ion-col class="center" size="6">
+          <ion-col size="2" offset="2">
+            <div class="profile-avatar">
+              <ion-skeleton-text></ion-skeleton-text>
+            </div>
+          </ion-col>
+        </ion-col>
+        <ion-col size="6" class="center">
+        </ion-col>
+      </ion-row>
+      <ion-row class="center">
+        <ion-col size="3">
+          <h3><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h3>
+        </ion-col>
+        <ion-col size="3">
+          <h3><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h3>
+        </ion-col>
+        <ion-col size="3">
+          <h3><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h3>
+        </ion-col>
+        <ion-col size="3">
+          <h3><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h3>
+        </ion-col>
+      </ion-row>
+      <ion-row class="center">
+        <ion-col size="3">
+          <h5><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h5>
+        </ion-col>
+        <ion-col size="3" class="col-win">
+          <h5><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h5>
+        </ion-col>
+        <ion-col size="3" class="col-lose">
+          <h5><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h5>
+        </ion-col>
+        <ion-col size="3">
+          <h5><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h5>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <h5><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h5>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div *ngIf="player && !onLoading" class="profile-section">
+    <ion-grid>
+      <ion-row>
+        <ion-col class="center" size="6">
+          <ion-col size="2" offset="2">
+            <div class="logged-badge" *ngIf="recentlyLogged"></div>
+            <img class="profile-avatar" src="{{player?.profile.avatarFull}}">
+          </ion-col>
+        </ion-col>
+        <ion-col size="6" class="center">
+          <div class="tier-section">
+            <img [ngClass]="tierImgClass()" *ngIf="player.rankTier" src="{{getRankStars(player.rankTier)}}">
+            <img [ngClass]="tierImgClass()" *ngIf="player.rankTier"  src="{{getRankTier(player.rankTier)}}">
+            <h4 *ngIf="!player.rankTier">-</h4>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row class="center">
+        <ion-col size="3">
+          Games
+        </ion-col>
+        <ion-col size="3">
+          Win
+        </ion-col>
+        <ion-col size="3">
+          Lose
+        </ion-col>
+        <ion-col size="3">
+          Percent.
+        </ion-col>
+      </ion-row>
+      <ion-row class="center" *ngIf="playerWl">
+        <ion-col size="3">
+          {{playerWl.win + playerWl.lose}}
+        </ion-col>
+        <ion-col size="3" class="col-win">
+          {{playerWl?.win}}
+        </ion-col>
+        <ion-col size="3" class="col-lose">
+          {{playerWl?.lose}}
+        </ion-col>
+        <ion-col size="3">
+          {{getWlPercentage()}}
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="center" size="6">
+          <!--<ion-button expand="block" fill="outline" color="primary" href="{{player.profile.profileUrl}}">
+            Steam profile
+          </ion-button>-->
+          <a href="{{player.profile.profileUrl}}">
+            <img class="steam-avatar" src="../../../assets/steam_logo.png">
+          </a>
+        </ion-col>
+        <ion-col class="center" size="6" style="padding-top: 5%">
+          <!--<ion-button expand="block" fill="outline" color="primary" href="{{player.profile.profileUrl}}">
+            Steam profile
+          </ion-button>-->
+          <a class="odota-link" href="{{openDotaUrl()}}">
+            {{'\<OPENDOTA\/\>'}}
+          </a>
+        </ion-col>
+        <!--<ion-col size="12">
+          <ion-button expand="block" fill="outline" color="primary" (click)="refreshMatches()">
+            Refresh
+          </ion-button>
+        </ion-col>-->
+      </ion-row>
+    </ion-grid>
+  </div>
+  <ion-list *ngIf="matches && matches.length > 0 && !onLoading">
+    <ion-list-header>
+      <!--<ion-col side="start" style="text-align: left;">
+        <ion-item style="text-align: left;">
+          <ion-label style="text-align: left;">-->
+            Recent Matches
+          <!--</ion-label>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item size="6">
+          <ion-label class="switch-label">Turbo</ion-label>
+          <ion-toggle [checked]="turbo"></ion-toggle>
+        </ion-item>
+      </ion-col>-->
+    </ion-list-header>
+    <ion-item *ngFor="let match of matches" [lines]="'full'" (click)="goToMatchDetail(match.id)">
+      <ion-avatar slot="start" class="custom-avatar" (click)="openHeroDetailModal(match.hero.id, $event)">
+        <img [ngClass]="resultClass(match)" *ngIf="match.hero" alt="{{match.hero?.name}}" src="{{'https://cdn.cloudflare.steamstatic.com' + match.hero?.img}}">
+        <span *ngIf="match.partySize > 1" class="custom-badge">{{match.partySize}}</span>
+      </ion-avatar>
+      <ion-label>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="4">
+              <h3>{{match.lobbyType?.name | titlecase}}</h3>
+              <small>{{match.gameMode.name | titlecase}}</small>
+            </ion-col>
+            <ion-col size="4">
+              <h3>{{match?.kills}} / {{match?.deaths}} / {{match?.assists}}</h3>
+              <small *ngIf="match.laneRole">{{match.isRadiant ? 'Radiant' : 'Dire'}} - {{match.laneRole.name}}</small>
+              <h5 *ngIf="match.isRoaming">{{'Roamer'}}</h5>
+            </ion-col>
+            <ion-col size="4">
+              <h3>{{getDuration(match.duration)}}</h3>
+              <small>{{match?.startTime|date: 'dd/MM/yy HH:mm'}}</small>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-list *ngIf="!matches || matches.length < 1 || onLoading">
+    <ion-item *ngFor="let skeleton of skeletonList">
+      <ion-thumbnail slot="start">
+        <ion-skeleton-text></ion-skeleton-text>
+      </ion-thumbnail>
+      <ion-label>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <h3><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h3>
+              <h5><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h5>
+            </ion-col>
+            <ion-col>
+              <h3><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h3>
+              <h3><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h3>
+            </ion-col>
+            <ion-col>
+              <h3><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h3>
+              <h4><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h4>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,35 @@
+.hero-avatar {
+    margin-top: 1vh;
+    border-radius: 100px;
+    max-height: 5vh;
+}
+
+.list-net {
+    margin-top: 5%;
+}
+
+.net-label {
+    margin-left: 5%;
+    color: gold;
+}
+
+.label {
+    margin-left: 5%;
+    color: var(--ion-color-primary);
+}
+
+.ml {
+    margin-left: 5%;
+}
+
+.p5 {
+    padding: 3% 0 0;
+}
+
+.select {
+    margin: 5% 5% 5% 2%;
+}
+
+.progress {
+    --buffer-background: var(--ion-item-background);
+}

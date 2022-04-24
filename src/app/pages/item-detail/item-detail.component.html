@@ -1,0 +1,50 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>{{item.dname}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button class="close-button" (click)="closeModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="hero-section">
+    <div class="ion-text-center hero-img-section">
+      <img class="item-img" [src]="'https://cdn.cloudflare.steamstatic.com' + item.img">
+    </div>
+    <ion-row>
+      <h4>Attributes:</h4>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6">Cost: {{item.cost}}</ion-col>
+      <ion-col size="6" *ngIf="item.cd">Cooldown: {{item.cd}}</ion-col>
+      <ion-col size="6" *ngIf="item.mc">Mana cost: {{item.mc}}</ion-col>
+      <ion-col size="6" *ngFor="let attribute of item.attrib">
+        {{attribute.header}} {{attribute.value}} {{attribute.footer}}
+      </ion-col>
+    </ion-row>
+  </div>
+  <ion-list *ngIf="item.components && item.components.length > 0">
+    <ion-list-header>
+      <h4>Components:</h4>
+    </ion-list-header>
+    <ion-item *ngFor="let component of item.components" (click)="openItemDetailModal(getItemByName(component)?.id, $event)">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="2">
+            <img class="ability-avatar" [src]="'https://cdn.cloudflare.steamstatic.com' + getItemByName(component).img"
+                 alt="../../../assets/no_img.png"/>
+          </ion-col>
+          <ion-col size="10">
+            <h4>{{getItemByName(component)?.dname}}</h4>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+  <div class="hero-section">
+    <div>
+      <h3>Lore:</h3>
+      <span>{{item.lore}}</span>
+    </div>
+  </div>
+</ion-content>

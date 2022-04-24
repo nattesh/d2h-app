@@ -1,0 +1,41 @@
+<ion-content fullscreen="true">
+    <ion-card style="margin-top: 50px">
+        <img src="./assets/icon.png" style="max-height: 100px"/>
+        <ion-card-header>
+            <ion-card-title>D2H</ion-card-title>
+            <ion-card-subtitle>A Dota 2 Handbook</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+            <ion-row>
+                <ion-col class="center-content" size="12">
+                    <div class="log-input">
+                        <ion-input  placeholder="Insert a player ID" [(ngModel)]="inputStr"></ion-input>
+                    </div>
+                    <br>
+                    <ion-spinner *ngIf="loading" name="dots"></ion-spinner>
+                    <ion-button color="dark" fill="outline" (click)="searchPlayer()" *ngIf="!loading"
+                            [disabled]="!inputStr || inputStr == ''">Search player</ion-button>
+                    <br>
+                    <br>
+                    <input type="checkbox" [(ngModel)]="defaultCheck"/>&nbsp;Set as default
+                </ion-col>
+            </ion-row>
+            <br>
+            <div style="text-align: center;">or</div>
+            <br>
+            <ion-row>
+                <ion-col class="center-content" size="12">
+                    <div class="log-input">
+                        <ion-input  placeholder="Insert a match ID" [(ngModel)]="inputMatch"></ion-input>
+                    </div>
+                    <br>
+                    <ion-spinner *ngIf="loading" name="dots"></ion-spinner>
+                    <ion-button color="dark" fill="outline" (click)="searchMatch()" *ngIf="!loading"
+                            [disabled]="!inputMatch || inputMatch == ''">Search match</ion-button>
+                </ion-col>
+            </ion-row>
+            <br>
+            <span class="link-like" (click)="showCredits()">More infos about this app</span>.
+        </ion-card-content>
+    </ion-card>
+</ion-content>

@@ -1,0 +1,38 @@
+<div class="ion-page" id="page-content">
+  <ion-content>
+    <ion-router-outlet></ion-router-outlet>
+  </ion-content>
+  <ion-tabs>
+    <ion-tab-bar slot="bottom" color="light" class="padding">
+      <ion-tab-button tab="overview" (click)="goHome()" *ngIf="!hideTabs">
+        <ion-icon name="home"></ion-icon>
+        <ion-label>Overview</ion-label>
+      </ion-tab-button>
+  
+      <ion-tab-button tab="matches" *ngIf="!hideTabs">
+        <ion-icon name="game-controller"></ion-icon>
+        <ion-label>Matches</ion-label>
+      </ion-tab-button>
+  
+      <ion-tab-button tab="friends" *ngIf="!hideTabs">
+        <ion-icon name="heart"></ion-icon>
+        <ion-label>Friends</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button (click)="goSearch()">
+        <ion-icon name="search"></ion-icon>
+        <ion-label>Search</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button tab="credits" *ngIf="hideTabs">
+        <ion-icon name="information-circle"></ion-icon>
+        <ion-label>Credits</ion-label>
+      </ion-tab-button>
+  
+      <ion-tab-button (click)="othersPopover($event)" *ngIf="!hideTabs">
+        <ion-icon name="information-circle"></ion-icon>
+        <ion-label>Others</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
+</div>

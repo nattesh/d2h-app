@@ -1,0 +1,43 @@
+<app-head-toolbar [title]="'Heroes'"></app-head-toolbar>
+<ion-content id="matches-container">
+  <ion-refresher *ngIf="heroes" #refresher slot="fixed" pullFactor="0.5" pullMin="100" pullMax="200" (ionRefresh)="doRefresh()">
+    <ion-refresher-content pullingIcon="arrow-dropdown"
+                           pullingText="Pull to refresh"
+                           refreshingSpinner="dots"
+                           refreshingText="Refreshing..."></ion-refresher-content>
+  </ion-refresher>
+  <ion-fab id="fab" *ngIf="maxIndex > 20" vertical="top" horizontal="center" slot="fixed" (click)="returnTop()">
+    <ion-fab-button>
+      <ion-icon name="arrow-up-circle"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-list *ngIf="heroes && heroes.length > 0 && !onLoading">
+    <ion-item *ngFor="let hero of partialHeroes" [lines]="'full'" (click)="goToMatches(hero.heroId)">
+      <ion-avatar slot="start" class="custom-avatar" (click)="openHeroDetailModal(hero.heroId, $event)">
+        <img src="{{'https://cdn.cloudflare.steamstatic.com' + getCompositeHero(hero.heroId)?.img}}">
+      </ion-avatar>
+      <ion-label>
+        <ion-grid>
+          <ion-row style="text-align: center">
+            <ion-col size="4">
+              <h3>Games</h3>
+              <small>{{hero.games}}</small>
+            </ion-col>
+            <ion-col size="4">
+              <h3>Win / Lose</h3>
+              <small>{{hero.win}}</small> / <small>{{hero.games - hero.win}}</small>
+            </ion-col>
+            <ion-col size="4">
+              <h3>Win Percent.</h3>
+              <small> {{getWlPercentage(hero.win, hero.games - hero.win)}}</small>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-infinite-scroll *ngIf="heroes" threshold="100px" (ionInfinite)="addHeroes($event)">
+    <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

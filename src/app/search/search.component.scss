@@ -1,0 +1,22 @@
+.center-content {
+  text-align: center;
+}
+
+.img-center {
+  display: block;
+  margin-top: 5%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;
+  max-width: 200px;
+}
+
+.link-like {
+  text-decoration: underline;
+  color: var(--ion-color-primary-tint);
+}
+
+.log-input {
+  width: 100%;
+  border-bottom: white 1px solid;
+}

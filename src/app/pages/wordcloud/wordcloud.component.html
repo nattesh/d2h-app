@@ -1,0 +1,6 @@
+<app-head-toolbar [title]="'Wordcloud'"></app-head-toolbar>
+<ion-content *ngIf="wordcloud" style="text-align: center">
+  <span *ngFor="let word of parsed" [ngStyle]="getStyleByWord(word)">
+    {{word.value}}
+  </span>
+</ion-content>

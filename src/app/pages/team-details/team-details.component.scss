@@ -1,0 +1,87 @@
+.k-color {
+  color: var(--ion-color-success-tint);
+}
+
+.d-color {
+  color: var(--ion-color-danger-tint);
+}
+
+.y-color {
+  color: var(--ion-color-warning-tint)
+}
+
+.b-color {
+  color: var(--ion-color-primary-tint)
+}
+
+.p0 {
+  padding: 0;
+}
+
+.inventory-p {
+   padding: 2px;
+ }
+
+.inventory-p-neutral {
+  padding: 10% 0 0 0;
+}
+
+.image-neutral {
+  border-radius: 100px;
+}
+
+.hero-avatar {
+  margin-top: 1vh;
+  border-radius: 100px;
+  max-height: 5vh;
+}
+
+.player-details {
+  height: 0;
+}
+
+.accordion-start {
+  height: 0;
+}
+
+.accordion-details {
+  width: 100%;
+  height: 250px;
+  animation-name: accordion;
+  animation-duration: 0.5s;
+  overflow-y: scroll;
+}
+
+.close-details {
+  width: 100%;
+  height: 0;
+  animation-name: accordion-close;
+  animation-duration: 0.5s;
+}
+
+@keyframes accordion-close {
+  from {height: 250px}
+  to {height: 0}
+}
+
+@keyframes accordion {
+  from {height: 0}
+  to {height: 250px}
+}
+
+.link-like {
+  text-decoration: underline;
+}
+
+.text-detail {
+  padding-left: 8%;
+}
+
+.time-overlay {
+  color: white;
+  bottom: 10%;
+  width: 100%;
+  background: rgba(81, 81, 81, 0.5);
+  font-size: xx-small;
+  position: absolute;
+}

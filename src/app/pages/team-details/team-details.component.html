@@ -1,0 +1,180 @@
+<ion-item>
+  <ion-col class="ion-text-center" size="3"><small>Hero</small></ion-col>
+  <ion-col class="ion-text-center" size="2"><small>Player</small></ion-col>
+  <ion-col class="ion-text-center" size="2"><small>Level</small></ion-col>
+  <ion-col class="ion-text-center" size="3"><small>K/D/A</small></ion-col>
+  <ion-col class="ion-text-center" size="2"><small>Lane</small></ion-col>
+</ion-item>
+<div *ngIf="!team">
+  <ion-item *ngFor="let player of [0,1,2,3,4]; let i = index" lines="full">
+    <ion-grid class="p0">
+      <ion-row>
+        <ion-col size="3" class="p0">
+          <ion-skeleton-text class="hero-avatar"></ion-skeleton-text>
+        </ion-col>
+        <ion-col size="2" class="ion-text-center">
+          <small class="link-like">
+            <ion-skeleton-text></ion-skeleton-text>
+          </small>
+        </ion-col>
+        <ion-col size="2" class="ion-text-center">
+          <small><ion-skeleton-text></ion-skeleton-text></small>
+        </ion-col>
+        <ion-col size="3" class="ion-text-center">
+          <small>
+           <ion-skeleton-text></ion-skeleton-text>
+          </small>
+        </ion-col>
+        <ion-col size="2" class="ion-text-center">
+          <small><ion-skeleton-text></ion-skeleton-text></small>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+</div>
+
+<ion-item *ngFor="let player of team; let i = index" lines="full" (click)="togglePlayerDetails(player.playerSlot)">
+  <ion-grid class="p0">
+    <ion-row>
+      <ion-col size="3" class="p0" (click)="openHeroDetailModal(player.heroId, $event)">
+        <img class="hero-avatar" src="{{'https://cdn.cloudflare.steamstatic.com' + getHeroAvatarById(player.heroId)}}"
+             alt="../../../assets/no_img.png">
+      </ion-col>
+      <ion-col size="2" class="ion-text-center" (click)="goToPlayerOverview(player.accountId)">
+        <small class="link-like">{{player.personaName}}</small>
+        <small *ngIf="!player.personaName">-</small>
+      </ion-col>
+      <ion-col size="2" class="ion-text-center">
+        <small>{{player.level}}</small>
+      </ion-col>
+      <ion-col size="3" class="ion-text-center">
+        <small>
+          <span class="k-color">{{player.kills}}</span>/<span class="d-color">{{player.deaths}}</span>/{{player.assists}}</small>
+      </ion-col>
+      <ion-col size="2" class="ion-text-center">
+        <small>{{getLaneDescription(player)}}</small>
+      </ion-col>
+    </ion-row>
+    <div id="player_details_{{player.playerSlot}}" class="accordion-start">
+      <ion-item>
+        <ion-col size="3"><small>LH / DN</small></ion-col>
+        <ion-col size="3"><small>GPM / XPM</small></ion-col>
+        <ion-col size="5"><small>Inventory</small></ion-col>
+        <ion-col size="1" class="ion-text-center"><small></small></ion-col>
+      </ion-item>
+      <ion-row>
+        <ion-col size="6">
+          <ion-row>
+            <ion-col size="6" class="text-detail">
+              <small>{{player.lastHits}} / {{player.denies}}</small>
+            </ion-col>
+            <ion-col size="6" class="text-detail">
+              <small>{{player.goldPerMin}} / {{player.xpPerMin}}</small>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6">
+              <small></small>
+            </ion-col>
+            <ion-col size="6">
+              <small></small>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+        <ion-col size="5">
+          <ion-row>
+            <ion-col class="inventory-p ion-text-center" size="4" (click)="openItemDetailModal(player.item0, $event)">
+              <img src="{{'https://cdn.cloudflare.steamstatic.com' + getItemById(player.item0)?.img}}" #inv0 (error)="showDefaultImg(inv0)"/>
+              <div class="time-overlay">{{getBuyTime(i, player.item0)}}</div>
+            </ion-col>
+            <ion-col class="inventory-p ion-text-center" size="4" (click)="openItemDetailModal(player.item1, $event)">
+              <img src="{{'https://cdn.cloudflare.steamstatic.com' + getItemById(player.item1)?.img}}" #inv1 (error)="showDefaultImg(inv1)"/>
+              <div class="time-overlay">{{getBuyTime(i, player.item1)}}</div>
+            </ion-col>
+            <ion-col class="inventory-p ion-text-center" size="4" (click)="openItemDetailModal(player.item2, $event)">
+              <img src="{{'https://cdn.cloudflare.steamstatic.com' + getItemById(player.item2)?.img}}" #inv2 (error)="showDefaultImg(inv2)"/>
+              <div class="time-overlay">{{getBuyTime(i, player.item2)}}</div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="inventory-p ion-text-center" size="4" (click)="openItemDetailModal(player.item3, $event)">
+              <img src="{{'https://cdn.cloudflare.steamstatic.com' + getItemById(player.item3)?.img}}" #inv3 (error)="showDefaultImg(inv3)"/>
+              <div class="time-overlay">{{getBuyTime(i, player.item3)}}</div>
+            </ion-col>
+            <ion-col class="inventory-p ion-text-center" size="4" (click)="openItemDetailModal(player.item4, $event)">
+              <img src="{{'https://cdn.cloudflare.steamstatic.com' + getItemById(player.item4)?.img}}" #inv4 (error)="showDefaultImg(inv4)"/>
+              <div class="time-overlay">{{getBuyTime(i, player.item4)}}</div>
+            </ion-col>
+            <ion-col class="inventory-p ion-text-center" size="4" (click)="openItemDetailModal(player.item5, $event)">
+              <img src="{{'https://cdn.cloudflare.steamstatic.com' + getItemById(player.item5)?.img}}"  #inv5 (error)="showDefaultImg(inv5)"/>
+              <div class="time-overlay">{{getBuyTime(i, player.item5)}}</div>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+        <ion-col size="1" class="inventory-p-neutral" (click)="openItemDetailModal(player.itemNeutral, $event)">
+          <img src="{{'https://cdn.cloudflare.steamstatic.com' + getItemById(player.itemNeutral)?.img}}" class="image-neutral"
+               #invNeu (error)="showDefaultImg(invNeu)">
+        </ion-col>
+      </ion-row>
+      <ion-item>
+        <ion-col size="3"><small>HD</small></ion-col>
+        <ion-col size="3"><small>HH</small></ion-col>
+        <ion-col size="5"><small>Backpack</small></ion-col>
+        <ion-col size="1"><small></small></ion-col>
+      </ion-item>
+      <ion-row>
+        <ion-col size="6">
+          <ion-row>
+            <ion-col size="6" class="text-detail">
+              <small>{{player.heroDamage}}</small>
+            </ion-col>
+            <ion-col size="6" class="text-detail">
+              <small>{{player.heroHealing}}</small>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+        <ion-col size="5">
+          <ion-row>
+            <ion-col class="inventory-p ion-text-center" size="4" (click)="openItemDetailModal(player.backpack0, $event)">
+              <img src="{{'https://cdn.cloudflare.steamstatic.com' + getItemById(player.backpack0)?.img}}" #bp0 (error)="showDefaultImg(bp0)"/>
+              <div class="time-overlay">{{getBuyTime(i, player.backpack0)}}</div>
+            </ion-col>
+            <ion-col class="inventory-p ion-text-center" size="4" (click)="openItemDetailModal(player.backpack1, $event)">
+              <img src="{{'https://cdn.cloudflare.steamstatic.com' + getItemById(player.backpack1)?.img}}" #bp1 (error)="showDefaultImg(bp1)"/>
+              <div class="time-overlay">{{getBuyTime(i, player.backpack1)}}</div>
+            </ion-col>
+            <ion-col class="inventory-p ion-text-center" size="4" (click)="openItemDetailModal(player.backpack2, $event)">
+              <img src="{{'https://cdn.cloudflare.steamstatic.com' + getItemById(player.backpack2)?.img}}" #bp2 (error)="showDefaultImg(bp2)"/>
+              <div class="time-overlay">{{getBuyTime(i, player.backpack2)}}</div>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+        <ion-col size="1">
+        </ion-col>
+      </ion-row>
+      <ion-item>
+        <ion-col size="3"><small>TD</small></ion-col>
+        <ion-col size="3"><small><span class="y-color">W</span>/<span class="b-color">S</span></small></ion-col>
+        <ion-col size="3"><small>Stacks</small></ion-col>
+        <ion-col size="3"><small>BBs</small></ion-col>
+      </ion-item>
+      <ion-row>
+        <ion-col size="3" class="text-detail">
+          <small>{{player.towerDamage}}</small>
+        </ion-col>
+        <ion-col size="3" class="text-detail">
+          <small><span class="y-color">{{player.obsPlaced}}</span>/<span class="b-color">{{player.senPlaced}}</span></small>
+        </ion-col>
+        <ion-col size="3" class="text-detail">
+          <small>{{player.campsStacked}}</small>
+        </ion-col>
+        <ion-col size="3" class="text-detail">
+          <small>{{player.buybackCount}}</small>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <br>
+      </ion-row>
+    </div>
+  </ion-grid>
+</ion-item>

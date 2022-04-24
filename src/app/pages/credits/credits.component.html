@@ -1,0 +1,42 @@
+<ion-header *ngIf="!asComponent">
+  <ion-toolbar>
+    <ion-title>Credits</ion-title>
+    <ion-buttons slot="end">
+      <ion-button class="close-button" (click)="closeModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<app-head-toolbar *ngIf="asComponent" [title]="'Credits'"></app-head-toolbar>
+<ion-content >
+  <div class="credits-content">
+    <ion-text>
+      D2H
+      <p><small>is a fan app developed by a <a href="http://dota2.com/">Dota®2</a> player, for other Dota 2 players.</small></p>
+      <p>
+        <small>D2H is a client app: the only existent server interaction is with OpenDota APIs. D2H will save <strong>only on your device</strong> your player id, in order to open automatically the Overview page for the default user.
+          D2H won't ask for any private information (such as credentials or personal datas) and won't send any consumed data outside the app.</small></p>
+      <p>
+        ©Valve Corporation - STEAM®
+        <br>
+        <small>
+          All the credits and intellectual property about the assets, images, lore, and any other content about Dota®2 existing in this app go to
+          <a href="https://www.valvesoftware.com/">© Valve Corporation</a> and to <a href="https://store.steampowered.com/">STEAM®</a>.
+          D2H consumes Steam APIs in order to recognize the loggin user with his SteamId.
+        </small>
+      </p>
+      <p>
+        <small>
+          Valve, the Valve logo, Steam, the Steam logo, Source, the Source logo, Valve Source and Dota are trademarks and/or registered trademarks of Valve Corporation.
+        </small>
+      </p>
+      <p>
+        OpenDota
+        <br>
+        <small>
+          D2H also consumes <a href="https://www.opendota.com/">{{'\<OPENDOTA\/\>'}}</a> APIs and constants. OpenDota is an awesome open source project which parse Dota 2 original replay matches details to
+          expose them in a more complete and detailed way. Please check out these incredible guys <a href="https://www.opendota.com/">work</a> (without which the development of D2H wouldn't be possible at all).
+        </small>
+      </p>
+    </ion-text>
+  </div>
+</ion-content>

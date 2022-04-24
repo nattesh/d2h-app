@@ -1,0 +1,62 @@
+@import "../../theme/variables.scss";
+
+ion-menu-button {
+  color: var(--ion-color-primary);
+}
+
+#container {
+  text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#container strong {
+  font-size: 20px;
+  line-height: 26px;
+}
+
+#container p {
+  font-size: 16px;
+  line-height: 22px;
+  color: #8c8c8c;
+  margin: 0;
+}
+
+#container a {
+  text-decoration: none;
+}
+
+ion-content ion-toolbar {
+  --background: transparent;
+}
+
+.avatar {
+  border-radius: 500px;
+  border: var(--ion-color-light-contrast) 0.1vh solid;
+  margin: 1.5vh 1vh;
+}
+
+.tier-col {
+  max-width: 50px;
+  padding-bottom: 5vh;
+}
+
+.profile-name {
+  text-align: center;
+}
+
+.tier-img {
+  max-height: 5vh;
+  position: absolute;
+}
+
+.padding {
+  padding-top: 2%
+}
+
+.popover-class {
+  background-color: #1A1B1E;
+}

@@ -1,0 +1,50 @@
+.img-green {
+  border: 3px solid var(--ion-color-success-shade);
+}
+
+.img-red {
+  border: 3px solid var(--ion-color-danger-shade);
+}
+
+.filter-button {
+  background-color: var(--ion-color-primary-shade);
+  color: white;
+}
+
+.reset-filter-button {
+  background-color: var(--ion-color-danger-shade);
+  color: white;
+}
+
+.filter-icon {
+  min-width: 50px;
+  min-height: 15px;
+}
+
+.custom-badge {
+  margin-bottom: 5vh;
+  left: 1vh;
+  position: fixed;
+  color: var(--ion-color-primary-shade);
+  background-color: white;
+  border: 2px solid var(--ion-color-primary-shade);
+  border-radius: 50px;
+  font-size: x-small;
+  padding: 0 5px 0.2vh;
+}
+
+.head-toolbar {
+  --background: var(--ion-item-background);
+  background-color: var(--ion-item-background);
+  --border-width: 0!important;
+}
+
+.title {
+  margin: 3% 5% 5%;
+  font-weight: bold;
+}
+
+.switch-label {
+  margin-right: 0;
+  max-width: 50%; 
+}

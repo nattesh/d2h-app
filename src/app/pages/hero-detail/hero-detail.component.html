@@ -1,0 +1,100 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{hero.localizedName}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button class="close-button" (click)="closeModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="hero-section">
+    <div class="ion-text-center">
+      <img class="hero-img" src="{{'https://cdn.cloudflare.steamstatic.com' + getVideoUrl(hero.img)}}" [ngClass]="byHeroPrimaryAttr(hero.primaryAttr)">
+    </div>
+    <ion-row>
+      <ion-text class="desc-text"><small>{{hero.attackType}}</small></ion-text>
+    </ion-row>
+    <ion-row>
+      <ion-text class="desc-text" *ngFor="let role of hero.roles"><small>{{role}}&nbsp;</small></ion-text>
+    </ion-row>
+    <ion-row>
+      <h4>Stats:</h4>
+    </ion-row>
+    <ion-row>
+      <ion-col size="4">
+        <img class="stat-img" src="../../../assets/stats/overviewicon_str.png"> <span class="stat-text">{{hero.baseStr}} + {{hero.strGain}}</span>
+      </ion-col>
+      <ion-col size="4">
+        <img class="stat-img" src="../../../assets/stats/overviewicon_agi.png"> <span class="stat-text">{{hero.baseAgi}} + {{hero.agiGain}}</span>
+      </ion-col>
+      <ion-col size="4">
+        <img class="stat-img" src="../../../assets/stats/overviewicon_int.png"> <span class="stat-text">{{hero.baseInt}} + {{hero.intGain}}</span>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="4">
+        <div class="img-div">
+          <img class="stat-img" src="../../../assets/stats/overviewicon_attack.png"> <span class="stat-text">{{hero.baseAttackMin}}-{{hero.baseAttackMax}}</span>
+        </div>
+      </ion-col>
+      <ion-col size="4">
+        <div class="img-div">
+          <img class="stat-img" src="../../../assets/stats/overviewicon_defense.png"> <span class="stat-text">{{hero.baseArmor}}</span>
+        </div>
+      </ion-col>
+      <ion-col size="4">
+        <div class="img-div">
+          <img  src="../../../assets/stats/overviewicon_speed.png"> <span class="stat-text">{{hero.moveSpeed}}</span>
+        </div>
+      </ion-col>
+    </ion-row>
+  </div>
+  <ion-list>
+    <ion-list-header>
+      <h4>Abilites:</h4>
+    </ion-list-header>
+    <ion-item *ngFor="let ability of abilities; let i = index" (click)="toggleAbilityDetails(i)">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="2">
+            <img class="ability-avatar" #abilityImg src="{{'https://cdn.cloudflare.steamstatic.com' + ability.img}}" (error)="showDefaultImg(abilityImg)"/>
+          </ion-col>
+          <ion-col size="10">
+            <h4>{{ability.dname}}</h4>
+          </ion-col>
+        </ion-row>
+        <div id="ability_details_{{i}}" class="accordion-start">
+          <ion-row>
+            <ion-col size="6" *ngIf="ability.dmg_type">
+              Damage Type: {{ability.dmg_type}}
+            </ion-col>
+            <ion-col size="6" *ngIf="ability.bkbpierce">
+              Bkb pierce: {{ability.bkbpierce}}
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6" *ngFor="let attr of ability.attrib">
+              <small>{{attr.header|titlecase}} {{attr.value}}</small>
+            </ion-col>
+            <ion-col size="6" *ngIf="ability.cd">
+              <small>Cooldown: {{ability.cd}}</small>
+            </ion-col>
+            <ion-col size="6" *ngIf="ability.mc">
+              <small>Mana: {{ability.mc}}</small>
+            </ion-col>
+          </ion-row>
+          <br>
+          <ion-row>
+            {{ability.desc}}
+          </ion-row>
+        </div>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+  <div class="hero-section">
+    <div>
+      <h3>Lore:</h3>
+      <span>{{heroLore}}</span>
+    </div>
+  </div>
+</ion-content>

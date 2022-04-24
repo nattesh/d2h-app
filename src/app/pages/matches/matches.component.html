@@ -1,0 +1,86 @@
+<app-head-toolbar title="{{filterHeroName ? ('Matches with ' + filterHeroName) : 'Matches'}}"></app-head-toolbar>
+<ion-content id="matches-container">
+  <ion-refresher *ngIf="matches" #refresher slot="fixed" pullFactor="0.5" pullMin="100" pullMax="200" (ionRefresh)="doRefresh()">
+    <ion-refresher-content pullingIcon="arrow-dropdown"
+                           pullingText="Pull to refresh"
+                           refreshingSpinner="dots"
+                           refreshingText="Refreshing..."></ion-refresher-content>
+  </ion-refresher>
+  <ion-fab id="fab" *ngIf="maxIndex > 20" vertical="bottom" horizontal="center" slot="fixed" (click)="returnTop()">
+    <ion-fab-button>
+      <ion-icon name="arrow-up-circle"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-row>
+    <ion-col size="3"></ion-col>
+    <ion-col size="6">
+      <ion-item lines="none">
+        <ion-label class="switch-label">Turbo</ion-label>
+        <ion-toggle [checked]="turbo" color="medium" (ionChange)="toggleTurbo($event)"></ion-toggle>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-list *ngIf="matches && matches.length > 0 && !onLoading">
+    <ion-item-sliding *ngFor="let match of partialMatches" #item>
+      <ion-item-options side="end">
+        <button *ngIf="!filterHeroId" class="filter-button" (click)="filterByHero(item, match)">
+          <ion-icon name="filter-outline" class="filter-icon"></ion-icon>
+        </button>
+        <button *ngIf="filterHeroId" class="reset-filter-button" (click)="filterByHero(item)">
+          <ion-icon name="close-outline" class="filter-icon"></ion-icon>
+        </button>
+      </ion-item-options>
+      <ion-item [lines]="'full'" (click)="goToMatchDeatils(match.id)">
+        <ion-avatar slot="start" class="custom-avatar" (click)="openHeroDetailModal(match.hero.id, $event)">
+          <img [ngClass]="resultClass(match)" *ngIf="match.hero" alt="{{match.hero?.name}}" src="{{'https://cdn.cloudflare.steamstatic.com' + match.hero?.img}}">
+          <span *ngIf="match.partySize > 1" class="custom-badge">{{match.partySize}}</span>
+        </ion-avatar>
+        <ion-label>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="4">
+                <h3>{{match.lobbyType?.name | titlecase}}</h3>
+                <small>{{match.gameMode.name | titlecase}}</small>
+              </ion-col>
+              <ion-col size="4">
+                <h3>{{match?.kills}} / {{match?.deaths}} / {{match?.assists}}</h3>
+                <small *ngIf="match.laneRole">{{match.isRadiant ? 'Radiant' : 'Dire'}} - {{match.laneRole.name}}</small>
+                <h5 *ngIf="match.isRoaming">{{'Roamer'}}</h5>
+              </ion-col>
+              <ion-col size="4">
+                <h3>{{getDuration(match.duration)}}</h3>
+                <small>{{match?.startTime|date: 'dd/MM/yy HH:mm'}}</small>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-label>
+      </ion-item>
+    </ion-item-sliding>
+  </ion-list>
+  <ion-list *ngIf="!matches || matches.length < 1 || onLoading">
+    <ion-item *ngFor="let skeleton of skeletonList">
+      <ion-label>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <h3><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h3>
+              <h5><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h5>
+            </ion-col>
+            <ion-col>
+              <h3><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h3>
+              <h3><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h3>
+            </ion-col>
+            <ion-col>
+              <h3><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h3>
+              <h4><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h4>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-infinite-scroll *ngIf="!onLoading" threshold="100px" (ionInfinite)="addMatches($event)">
+    <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
