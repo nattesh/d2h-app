@@ -28,6 +28,13 @@ You may find more infos in the [OpenDota GitHub page](https://github.com/odota)
 
 There are no others back-end logics or services, just search for a player id and look at his matches. 
 
+## Credits
+### ©Valve Corporation - STEAM®
+All the credits and intellectual property about the assets, images, lore, and any other content about Dota®2 existing in this app go to
+[© Valve Corporation](https://www.valvesoftware.com/) and to [STEAM®](https://store.steampowered.com/)
+
+Valve, the Valve logo, Steam, the Steam logo, Source, the Source logo, Valve Source and Dota are trademarks and/or registered trademarks of Valve Corporation.
+
 ## Screenshots
 
 ### Homepage
@@ -47,11 +54,3 @@ There are no others back-end logics or services, just search for a player id and
 
 ### Item details
 ![item](https://i.ibb.co/DKpZ70X/item.png)
-
-
-## Credits
-### ©Valve Corporation - STEAM®
-All the credits and intellectual property about the assets, images, lore, and any other content about Dota®2 existing in this app go to
-[© Valve Corporation](https://www.valvesoftware.com/) and to [STEAM®](https://store.steampowered.com/)
-
-Valve, the Valve logo, Steam, the Steam logo, Source, the Source logo, Valve Source and Dota are trademarks and/or registered trademarks of Valve Corporation.
