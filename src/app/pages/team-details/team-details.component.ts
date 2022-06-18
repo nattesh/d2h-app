@@ -9,6 +9,7 @@ import {ItemDetailComponent} from '../item-detail/item-detail.component';
 import {ItemService} from '../../services/item.service';
 import { HeroService } from 'src/app/services/hero.service';
 import { AbilityService } from 'src/app/services/ability.service';
+import { MatchesService } from 'src/app/services/matches.service';
 
 @Component({
   selector: 'app-team-details',
@@ -18,13 +19,13 @@ import { AbilityService } from 'src/app/services/ability.service';
 export class TeamDetailsComponent implements OnInit {
 
   @Input() team: DetailedPlayer[];
-  @Output() lastIsOpen = new EventEmitter();
 
   constructor(private router: Router,
               private itemService: ItemService,
               private heroService: HeroService,
               private modalService: ModalService,
-              private abilityService: AbilityService) { }
+              private abilityService: AbilityService,
+              private matchService: MatchesService) { }
 
   ngOnInit() {}
 
@@ -77,8 +78,7 @@ export class TeamDetailsComponent implements OnInit {
     } else {
       detail.setAttribute('class', 'accordion-details');
       if(slot === 132) {
-        console.log('lastIsOpen');
-        this.lastIsOpen.emit();
+        this.matchService.openLast();
       }
     }
   }

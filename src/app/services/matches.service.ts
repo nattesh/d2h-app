@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {odotaEndpoints} from '../constants/endpoints.constant';
 import {map} from 'rxjs/operators';
@@ -12,9 +12,15 @@ import {PlayerService} from './player.service';
 })
 export class MatchesService {
 
+    lastPlayerIsOpen = new EventEmitter();
+
     constructor(private http: HttpClient,
                 private playerService: PlayerService,
                 private heroService: HeroService) {
+    }
+
+    openLast() {
+        this.lastPlayerIsOpen.emit();
     }
 
     getRecentMatchesByUser(userId: string) {

@@ -30,7 +30,14 @@ export class MatchDetailComponent implements OnInit {
         );
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.matchesService.lastPlayerIsOpen.subscribe(() => {
+            setTimeout(() => {
+                this.scrollBottom();
+            }, 500);
+            
+        })
+    }
 
     ionViewWillEnter() {
         this.toolbarService.setTitle('Match Details');
@@ -72,8 +79,7 @@ export class MatchDetailComponent implements OnInit {
     }
 
     scrollBottom(){
-        console.log('scroll');
-        this.container.scrollToBottom(300);
+        this.container.scrollToBottom(200);
     }
 
     changeSegment(e) {
