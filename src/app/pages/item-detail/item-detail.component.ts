@@ -29,7 +29,7 @@ export class ItemDetailComponent implements OnInit {
   }
 
   getItemByName(name) {
-    return this.itemService.getIteByName(name);
+    return this.itemService.getItemByName(name);
   }
 
   openItemDetailModal(itemId, event) {

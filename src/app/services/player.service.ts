@@ -5,6 +5,7 @@ import {map} from 'rxjs/operators';
 import {DetailedPlayer, Player} from '../models/player.model';
 import {Profile} from '../models/profile.model';
 import {Friend} from '../models/friend.model';
+import { PermanentBuff } from '../models/permanent-buff.model';
 
 @Injectable({
     providedIn: 'root'
@@ -99,6 +100,20 @@ export class PlayerService {
         return finalArr;
     }
 
+    mapPermanentBuff(dPermanentBuffs): PermanentBuff[] {
+
+        const res = [];
+
+        for(let dPermanentBuff of dPermanentBuffs) {
+            const pf = new PermanentBuff;
+            pf.permanentBuff = dPermanentBuff.permanent_buff;
+            pf.stackCount = dPermanentBuff.stack_count;
+            res.push(pf);
+        }
+
+        return res;
+    }
+
     mapSingleDetailedPlayer(dPlayer): DetailedPlayer {
         const player = new DetailedPlayer();
 
@@ -163,7 +178,7 @@ export class PlayerService {
         player.obsLeftLog = dPlayer.obs_left_log;
         player.obsPlaced = dPlayer.obs_placed;
         player.partyId = dPlayer.party_id;
-        player.permanentBuffs = dPlayer.permanent_buffs;
+        player.permanentBuffs = this.mapPermanentBuff(dPlayer.permanent_buffs);
         player.pings = dPlayer.pings;
         player.purchase = dPlayer.purchase;
         player.purchaseLog = dPlayer.purchase_log;

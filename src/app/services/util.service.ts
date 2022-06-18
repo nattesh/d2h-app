@@ -15,7 +15,7 @@ export class UtilService {
     this.popover.dismiss()
   }
 
-  private toCamel(s: string) {
+  toCamel(s: string) {
     return s.replace(/([-_][a-z])/ig, ($1) => {
         return $1.toUpperCase()
             .replace('-', '')

@@ -24,7 +24,7 @@ export class ItemService {
         return item;
     }
 
-    getIteByName(name) {
+    getItemByName(name) {
         const item = items[name];
         return item;
     }

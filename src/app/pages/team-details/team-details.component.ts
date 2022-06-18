@@ -8,6 +8,7 @@ import {ModalService} from '../../services/modal.service';
 import {ItemDetailComponent} from '../item-detail/item-detail.component';
 import {ItemService} from '../../services/item.service';
 import { HeroService } from 'src/app/services/hero.service';
+import { AbilityService } from 'src/app/services/ability.service';
 
 @Component({
   selector: 'app-team-details',
@@ -22,7 +23,8 @@ export class TeamDetailsComponent implements OnInit {
   constructor(private router: Router,
               private itemService: ItemService,
               private heroService: HeroService,
-              private modalService: ModalService) { }
+              private modalService: ModalService,
+              private abilityService: AbilityService) { }
 
   ngOnInit() {}
 
@@ -81,9 +83,42 @@ export class TeamDetailsComponent implements OnInit {
     }
   }
 
-  getItemById(itemId) {
+
+  getItemImage(itemId) {
+
+    if(!itemId) {
+      return undefined;
+    }
+
     const item = this.itemService.getItemById(itemId);
-    return item;
+
+    if(item) {
+      return 'https://cdn.cloudflare.steamstatic.com' + item.img;
+    } else {
+      return undefined;
+    }
+
+  }
+
+  getBuffById(id) {
+    const name = this.abilityService.getNameFromBuffId(id);
+    const buff = this.abilityService.getBuffByName(name);
+    return buff;
+  }
+
+  getBuffImgByBuffId(id) {
+    const buff = this.getBuffById(id);
+    return 'https://cdn.cloudflare.steamstatic.com' + buff.img;;
+  }
+
+  handleBuffClick(id, e) {
+    const buff = this.getBuffById(id);
+    const name = this.abilityService.getNameFromBuffId(id);
+    if(buff.type === 'item') {
+      const item = this.itemService.getItemByName(name);
+      this.openItemDetailModal(item.id, e);
+    }
+    
   }
 
   getBuyTime(index, itemId) {

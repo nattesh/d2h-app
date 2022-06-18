@@ -1,3 +1,4 @@
+import { PermanentBuff } from './permanent-buff.model';
 import {Profile} from './profile.model';
 
 export class Player {
@@ -16,9 +17,7 @@ export class Player {
 export class DetailedPlayer {
     id: number;
     playerSlot: number;
-    abilityUpgradesArr: [
-        number
-    ];
+    abilityUpgradesArr: number[];
     abilityUses: any;
     abilityTargets: any;
     damageTargets: any;
@@ -29,21 +28,17 @@ export class DetailedPlayer {
     backpack0: number;
     backpack1: number;
     backpack2: number;
-    buybackLog: [
-        {
-            time: number;
-            slot: number;
-            playerSlot: number
-        }
-    ];
+    buybackLog: {
+        time: number;
+        slot: number;
+        playerSlot: number
+    }[];
     campsStacked: number;
-    connectionLog: [
-        {
-            time: number;
-            event: string;
-            playerSlot: number
-        }
-    ];
+    connectionLog: {
+        time: number;
+        event: string;
+        playerSlot: number
+    }[];
     creepsStacked: number;
     damage: any;
     damageInflictor: any;
@@ -51,16 +46,12 @@ export class DetailedPlayer {
     damageTaken: any;
     deaths: number;
     denies: number;
-    dnt: [
-        number
-    ];
+    dnt: number[];
     gold: number;
     goldPerMin: number;
     goldReasons: any;
     goldSpent: number;
-    goldt: [
-        number
-    ];
+    goldt: number[];
     heroDamage: number;
     heroHealing: number;
     heroHits: any;
@@ -77,72 +68,50 @@ export class DetailedPlayer {
     killed: any;
     killedBy: any;
     kills: number;
-    killsLog: [
-        {
-            time: number;
-            key: string
-        }
-    ];
+    killsLog: {
+        time: number;
+        key: string
+    }[];
     lanePos: any;
     lastHits: number;
     leaverStatus: number;
     level: number;
-    lht: [
-        number
-    ];
+    lht: number[];
     lifeState: any;
     maxHeroHit: any;
     multiKills: any;
     netWorth: any;
     obs: any;
-    obsLeftLog: [
-        any
-    ];
-    obsLog: [
-        any
-    ];
+    obsLeftLog: any[];
+    obsLog: any[];
     obsPlaced: number;
     partyId: number;
-    permanentBuffs: [
-        any
-    ];
+    permanentBuffs: PermanentBuff[];
     pings: number;
     purchase: any;
-    purchaseLog: [
-        {
-            time: number;
-            key: string
-        }
-    ];
+    purchaseLog: {
+        time: number;
+        key: string
+    }[];
     runePickups: number;
     runes: {
         property1: number;
         property2: number
     };
-    runesLog: [
-        {
-            time: number;
-            key: number
-        }
-    ];
+    runesLog: {
+        time: number;
+        key: number
+    }[];
     sen: any;
-    senLeftLog: [
-        any
-    ];
-    senLog: [
-        any
-    ];
+    senLeftLog: any[];
+    senLog: any[];
     senPlaced: number;
     stuns: number;
-    times: [
-        number
-    ];
+    times: number[];
     towerDamage: number;
     xpPerMin: number;
     xpReasons: any;
-    xpt: [
-        number
-    ];
+    xpt: number[];
     personaName: string;
     name: string;
     lastLogin: null;
@@ -188,8 +157,6 @@ export class DetailedPlayer {
     actionsPerMin: number;
     lifeStateDead: number;
     rankTier: number;
-    cosmetics: [
-        number
-    ];
+    cosmetics: number[];
     benchmarks: any;
 }
