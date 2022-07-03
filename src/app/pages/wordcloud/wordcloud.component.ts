@@ -82,7 +82,6 @@ export class WordcloudComponent implements OnInit {
 
   getStyleByWord(word) {
       const sty = this.styles.find(it => it.word === word.value).style;
-      debugger;
       return sty;
   }
 
