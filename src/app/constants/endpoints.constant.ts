@@ -7,7 +7,8 @@ export const odotaEndpoints = {
         hero_names: 'https://raw.githubusercontent.com/odota/dotaconstants/master/build/hero_names.json',
         items: 'https://raw.githubusercontent.com/odota/dotaconstants/master/build/items.json',
         lore: 'https://raw.githubusercontent.com/odota/dotaconstants/master/build/hero_lore.json',
-        permanent_buffs: 'https://raw.githubusercontent.com/odota/dotaconstants/master/build/permanent_buffs.json'
+        permanent_buffs: 'https://raw.githubusercontent.com/odota/dotaconstants/master/build/permanent_buffs.json',
+        patch: 'https://raw.githubusercontent.com/odota/dotaconstants/master/json/patch.json'
     },
     hero: {
         all: environment.base_odota_url + 'heroes',

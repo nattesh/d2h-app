@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
+import { Observable } from 'rxjs';
 import { odotaEndpoints } from '../constants/endpoints.constant';
+import { Patch } from '../models/patch.model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,14 @@ export class FetchConstantsService {
     this.fetchLore();
     this.fetchHeroAbilities();
     this.fetchItems();
+  }
+
+  getPatchFromStorage() {
+    return this.storage.get('patch');
+  }
+
+  getPatchFromApi(): Observable<Patch[]> {
+    return this.http.get<Patch[]>(odotaEndpoints.constants.patch);
   }
 
   private fetchBuffs() {

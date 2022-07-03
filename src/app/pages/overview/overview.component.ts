@@ -37,7 +37,6 @@ export class OverviewComponent implements OnInit {
                 private activatedRoute: ActivatedRoute,
                 private modalService: ModalService,
                 private router: Router,
-                private navCtrl: NavController,
                 private platform: Platform) {
         this.skeletonList = Array(20).fill({});
         this.activatedRoute.queryParams.subscribe(

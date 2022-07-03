@@ -1,8 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { NavigationExtras, Router } from "@angular/router";
 import { NavController } from "@ionic/angular";
+import { Storage } from "@ionic/storage";
 import { routes } from "src/app/constants/routes.constant";
-import { ModalService } from "src/app/services/modal.service";
+import { Patch } from "src/app/models/patch.model";
 import { SearchService } from "src/app/services/search.service";
 import { ToastService } from "src/app/services/toast.service";
 
@@ -20,14 +21,24 @@ export class SearchTabComponent implements OnInit {
     loading: boolean;
     saveUser: false;
 
+    patch: string;
+
     constructor(
         private searchService: SearchService,
         private toastService: ToastService,
         private navCtrl: NavController,
-        private modalService: ModalService,
+        private storage: Storage,
         private router: Router) { }
 
     ngOnInit() {
+        this.loadPatch();
+    }
+
+    loadPatch() {
+        this.storage.get('patch').then((patches: Patch[]) => {
+            const lastPatch = patches[patches.length - 1];
+            this.patch = lastPatch.name;
+        })
     }
 
     searchPlayer() {

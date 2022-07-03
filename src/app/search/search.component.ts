@@ -8,6 +8,8 @@ import {InAppBrowser, InAppBrowserObject} from '@ionic-native/in-app-browser/ngx
 import {ModalService} from '../services/modal.service';
 import {CreditsComponent} from '../pages/credits/credits.component';
 import { NavController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
+import { Patch } from '../models/patch.model';
 
 @Component({
     selector: 'app-search',
@@ -23,14 +25,26 @@ export class SearchComponent implements OnInit {
     saveUser: false;
     browser: InAppBrowserObject;
 
+    patch: string;
+
     constructor(
         private searchService: SearchService,
         private toastService: ToastService,
         private navCtrl: NavController,
         private modalService: ModalService,
+        private storage: Storage,
         private router: Router) { }
 
     ngOnInit() {
+        this.loadPatch();
+    }
+
+    loadPatch() {
+        this.storage.get('patch').then((patches: Patch[]) => {
+            console.log(patches);
+            const lastPatch = patches[patches.length - 1];
+            this.patch = lastPatch.name;
+        })
     }
 
     searchPlayer() {
@@ -72,7 +86,8 @@ export class SearchComponent implements OnInit {
                     this.saveUser = false;
                 }
             },
-            () => {
+            (e) => {
+                console.log(e);
                 this.loading = false;
                 this.toastService.presentToast('Error: it seems that your user isn\'t on openDota services');
                 this.saveUser = false;
