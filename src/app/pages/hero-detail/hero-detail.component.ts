@@ -1,10 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {HeroService} from '../../services/hero.service';
 import {Hero} from '../../models/hero.model';
-import lore from '../../constants/lore.json';
 import {ModalService} from '../../services/modal.service';
-import heroAbilities from '../../constants/hero_abilities.json';
-import abilities from '../../constants/abilities.json';
+import { AbilityService } from 'src/app/services/ability.service';
 
 @Component({
   selector: 'app-hero-detail',
@@ -19,21 +17,28 @@ export class HeroDetailComponent implements OnInit {
   abilities: any[];
 
   constructor(private heroService: HeroService,
+              private abilityService: AbilityService,
               private modalService: ModalService) { }
 
   ngOnInit() {
     this.hero = this.heroService.getHeroById(this.heroId);
     this.getHeroLoreByHero(this.hero.name);
-    this.abilities = this.getAbilitiesByHeroName(this.hero.name);
+    this.initAbilities();
   }
 
-  getAbilitiesByHeroName(name: string): any[] {
-    const abs = heroAbilities[name].abilities;
+  initAbilities() {
+    this.abilityService.getAbilitiesConst().then((abilitiesConts) => {
+      this.abilities = this.getAbilitiesByHeroName(abilitiesConts, this.hero.name);
+    });
+  }
+
+  getAbilitiesByHeroName(abilitiesConst, name: string): any[] {
+    const abs = HeroService.heroAbilities[name].abilities;
     const abilitiesObj = [];
 
    for (const ability of abs) {
       if (ability !== 'generic_hidden') {
-        abilitiesObj.push(abilities[ability]);
+        abilitiesObj.push(abilitiesConst[ability]);
       }
     }
     return abilitiesObj;
@@ -45,7 +50,7 @@ export class HeroDetailComponent implements OnInit {
 
   getHeroLoreByHero(name) {
     const shortened = name.replace('npc_dota_hero_', '');
-    this.heroLore = lore[shortened];
+    this.heroLore = HeroService.lore[shortened];
   }
 
   byHeroPrimaryAttr(attr: string) {

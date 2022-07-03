@@ -17,9 +17,10 @@ import {ModalService} from './services/modal.service';
 import {SharedModule} from './shared.module';
 import {File} from '@ionic-native/file/ngx';
 import { Clipboard } from '@awesome-cordova-plugins/clipboard/ngx';
+import { FetchConstantsComponent } from './fetch-constants/fetch-constants.component';
 
 @NgModule({
-  declarations: [AppComponent, SearchComponent],
+  declarations: [AppComponent, SearchComponent, FetchConstantsComponent],
     imports: [
         BrowserModule,
         IonicModule.forRoot(),

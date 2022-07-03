@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import {SearchComponent} from './search/search.component';
 import {paths} from './constants/routes.constant';
+import { FetchConstantsComponent } from './fetch-constants/fetch-constants.component';
 
 const routes: Routes = [
   {
@@ -11,6 +12,10 @@ const routes: Routes = [
   {
     path: paths.pages,
     loadChildren: './pages/pages.module#FolderPageModule'
+  },
+  {
+    path: paths.fetch,
+    component: FetchConstantsComponent
   }
 ];
 

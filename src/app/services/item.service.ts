@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import items from '../constants/items.json';
+import { Storage } from '@ionic/storage';
 import { UtilService } from './util.service';
 
 @Injectable({
@@ -7,9 +7,10 @@ import { UtilService } from './util.service';
 })
 export class ItemService {
 
+    static items;
     static itemsObj;
 
-    constructor(private util: UtilService) {
+    constructor(private util: UtilService, private storage: Storage) {
         this.initItemsJson();
     }
 
@@ -25,14 +26,14 @@ export class ItemService {
     }
 
     getItemByName(name) {
-        const item = items[name];
+        const item = ItemService.items[name];
         return item;
     }
 
     getItemNameById(id) {
         let name;
-        for(let k of Object.keys(items)) {
-            if(items[k].id === id) {
+        for(let k of Object.keys(ItemService.items)) {
+            if(ItemService.items[k].id === id) {
                 name = k;
                 break;
             }
@@ -40,9 +41,10 @@ export class ItemService {
         return name;
     }
 
-    private initItemsJson() {
+    private async initItemsJson() {
+        ItemService.items = await this.storage.get('items');
         if(!ItemService.itemsObj) {
-            const json = this.util.keysToCamel(items);
+            const json = this.util.keysToCamel(ItemService.items);
             ItemService.itemsObj = json;
         } 
     }

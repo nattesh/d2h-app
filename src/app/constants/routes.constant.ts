@@ -1,4 +1,5 @@
 export const paths = {
+    fetch: 'fetch-constants',
     search: 'search',
     overview: 'overview',
     matchDetail: 'match-detail',
@@ -7,6 +8,7 @@ export const paths = {
 };
 
 export const routes = {
+    fetch: paths.fetch,
     search: paths.search,
     pages: {
         overview: paths.pages + '/' + paths.overview,

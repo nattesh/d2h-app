@@ -42,13 +42,7 @@ export class AppComponent implements OnInit {
     this.platform.ready().then(() => {
       this.splashScreen.hide();
 
-      this.searchService.getStoredUserId().then((data) => {
-        if (data) {
-          this.router.navigateByUrl(routes.pages.overview);
-        } else {
-            this.router.navigateByUrl(routes.search);
-        }
-      });
+      this.router.navigateByUrl(routes.fetch);
     });
   }
 

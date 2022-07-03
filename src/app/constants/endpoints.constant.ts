@@ -1,6 +1,14 @@
 import {environment} from '../../environments/environment';
 
 export const odotaEndpoints = {
+    constants: {
+        abilities: 'https://raw.githubusercontent.com/odota/dotaconstants/master/build/abilities.json',
+        hero_abilities: 'https://raw.githubusercontent.com/odota/dotaconstants/master/build/hero_abilities.json',
+        hero_names: 'https://raw.githubusercontent.com/odota/dotaconstants/master/build/hero_names.json',
+        items: 'https://raw.githubusercontent.com/odota/dotaconstants/master/build/items.json',
+        lore: 'https://raw.githubusercontent.com/odota/dotaconstants/master/build/hero_lore.json',
+        permanent_buffs: 'https://raw.githubusercontent.com/odota/dotaconstants/master/build/permanent_buffs.json'
+    },
     hero: {
         all: environment.base_odota_url + 'heroes',
         getHeroesByPlayer(playerId) {
@@ -33,11 +41,6 @@ export const odotaEndpoints = {
         },
         wordCloud(userId) {
             return environment.base_odota_url + 'players/' + userId + '/wordcloud';
-        }
-    },
-    constants: {
-        getConstants(resource) {
-            return environment.base_odota_url + 'constants/' + resource;
         }
     }
 };

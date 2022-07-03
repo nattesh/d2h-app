@@ -1,18 +1,19 @@
 import { Injectable } from "@angular/core";
-import buffs from '../constants/permanent_buffs.json';
-import abilities from '../constants/abilities.json';
 import { UtilService } from "./util.service";
 import { ItemService } from "./item.service";
+import { Storage } from "@ionic/storage";
 
 @Injectable({
     providedIn: 'root'
 })
 export class AbilityService {
 
+    static buffs;
+    static abilities;
     static buffsObj: any[];
     static abilitiesObj: any[];
 
-    constructor(private util: UtilService, private itemService: ItemService) {
+    constructor(private util: UtilService, private storage: Storage) {
         this.initAbilitiesJson();
         this.initBuffsJson();
     }
@@ -40,16 +41,22 @@ export class AbilityService {
         return undefined;
     }
 
-    private initBuffsJson() {
+    async getAbilitiesConst() {
+        return this.storage.get('abilities');
+    }
+
+    private async initBuffsJson() {
+        AbilityService.buffs = await this.storage.get('buffs');
         if(!AbilityService.buffsObj) {
-            const json = this.util.keysToCamel(buffs);
+            const json = this.util.keysToCamel(AbilityService.buffs);
             AbilityService.buffsObj = json;
         } 
     }
 
-    private initAbilitiesJson() {
+    private async initAbilitiesJson() {
+        AbilityService.abilities = await this.storage.get('abilities');
         if(!AbilityService.abilitiesObj) {
-            const json = this.util.keysToCamel(abilities);
+            const json = this.util.keysToCamel(AbilityService.abilities);
             AbilityService.abilitiesObj = json;
         } 
     }
