@@ -13,6 +13,7 @@ export class WordcloudComponent implements OnInit {
   wordcloud = undefined;
 
   parsed: {value: string, count: number }[];
+  styles: {word: string, style: any }[];
 
     constructor(private playerService: PlayerService,
                 private toolbarService: ToolbarService,
@@ -44,12 +45,15 @@ export class WordcloudComponent implements OnInit {
   parseCloud(data) {
       const names = Object.keys(data);
       this.parsed = [];
+      this.styles = [];
 
       for (const name of names) {
           const newParsed = { value: name, count: data[name]};
+          this.populateStylesByWord(newParsed);
           this.parsed.push(newParsed);
       }
 
+      console.log(this.styles);
       this.parsed.sort((a, b) => {
           if (a.count > b.count) {
               return - 1;
@@ -61,15 +65,25 @@ export class WordcloudComponent implements OnInit {
       });
   }
 
+  populateStylesByWord(parsed) {
+    let size = parsed.count * 5 / 4;
+    if (size < 15) { size = 15; }
+
+    const color = 'rgb(' + Math.floor(Math.random() * 255) + ',' + Math.floor(Math.random() * 255) + ','
+        + Math.floor(Math.random() * 255) + ')';
+
+    const item = {
+      word: parsed.value,
+      style: { 'font-size': size + 'px', color }
+    };
+
+    this.styles.push(item);
+  }
+
   getStyleByWord(word) {
-      let size = word.count * 5 / 4;
-      /*if (size > 52) { size = 52; }*/
-      if (size < 15) { size = 15; }
-
-      const color = 'rgb(' + Math.floor(Math.random() * 255) + ',' + Math.floor(Math.random() * 255) + ','
-          + Math.floor(Math.random() * 255) + ')';
-
-      return { 'font-size': size + 'px', color };
+      const sty = this.styles.find(it => it.word === word.value).style;
+      debugger;
+      return sty;
   }
 
 }
