@@ -104,13 +104,15 @@ export class PlayerService {
 
         const res = [];
 
-        for(let dPermanentBuff of dPermanentBuffs) {
-            const pf = new PermanentBuff;
-            pf.permanentBuff = dPermanentBuff.permanent_buff;
-            pf.stackCount = dPermanentBuff.stack_count;
-            res.push(pf);
+        if(dPermanentBuffs) {
+            for(let dPermanentBuff of dPermanentBuffs) {
+                const pf = new PermanentBuff;
+                pf.permanentBuff = dPermanentBuff.permanent_buff;
+                pf.stackCount = dPermanentBuff.stack_count;
+                res.push(pf);
+            }
         }
-
+        
         return res;
     }
 

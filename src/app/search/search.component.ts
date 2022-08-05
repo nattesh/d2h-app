@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {SearchService} from '../services/search.service';
 import {NavigationExtras, Router} from '@angular/router';
 import {routes} from '../constants/routes.constant';
-import {SettingsService} from '../services/settings.service';
 import {ToastService} from '../services/toast.service';
-import {InAppBrowser, InAppBrowserObject} from '@ionic-native/in-app-browser/ngx';
+import {InAppBrowserObject} from '@ionic-native/in-app-browser/ngx';
 import {ModalService} from '../services/modal.service';
 import {CreditsComponent} from '../pages/credits/credits.component';
 import { NavController } from '@ionic/angular';
@@ -75,10 +74,10 @@ export class SearchComponent implements OnInit {
                 if (data) {
                     if(this.defaultCheck) {
                         this.searchService.setStoredUserId(userId).then(
-                            () => this.router.navigateByUrl(routes.pages.overview, {queryParams: {default: true}})
+                            () => this.navCtrl.navigateRoot(routes.pages.overview, {queryParams: {default: true}})
                         );
                     } else {
-                        this.navCtrl.navigateForward([routes.pages.overview], {queryParams: {userId}});
+                        this.navCtrl.navigateRoot([routes.pages.overview], {queryParams: {userId}});
                     }
                 } else {
                     this.toastService.presentToast('Generic error');
