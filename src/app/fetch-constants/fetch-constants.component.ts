@@ -50,9 +50,12 @@ export class FetchConstantsComponent implements OnInit {
       this.fetchService.getPatchFromApi().subscribe((patches: Patch[]) => {
         const localLast = localPatch[localPatch.length - 1];
         const apiLast = patches[patches.length - 1];
-        console.log(localLast, localLast.name);
         if(localLast.id !== apiLast.id) {
-          this.fetchConstantsAndInit();
+          this.storage.remove('patch').then(() => {
+            this.storage.set('patch', apiLast).then(() => {
+              this.fetchConstantsAndInit();
+            });
+          });
         } else {
           this.initApp();
         }

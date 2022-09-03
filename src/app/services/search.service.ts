@@ -33,6 +33,6 @@ export class SearchService {
     }
 
     forgetUser() {
-        return this.storage.clear();
+        return this.storage.remove('user_id');
     }
 }

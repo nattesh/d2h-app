@@ -31,5 +31,6 @@
     </div>
     <div class="center-content">
         <p>Patch: {{patch}}</p>
+        <ion-button color="dark" fill="outline" (click)="checkUpdates()" *ngIf="!loading">Load latest</ion-button>
     </div>
 </ion-content>

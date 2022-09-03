@@ -17,7 +17,8 @@ export class FetchConstantsService {
 
   constructor(private http: HttpClient, private storage: Storage) { }
 
-  fetchConstants() {
+  async fetchConstants() {
+    await this.cleanConstants();
     this.fetchBuffs();
     this.fetchAbilities();
     this.fetchHeroes();
@@ -74,6 +75,15 @@ export class FetchConstantsService {
     this.http.get(odotaEndpoints.constants.items).subscribe(items => {
         this.storage.set('items', items).then(() => this.incrementCounter());
     });
+  }
+
+  private async cleanConstants() {
+    await this.storage.remove('buffs');
+    await this.storage.remove('abilities');
+    await this.storage.remove('heroes');
+    await this.storage.remove('lore');
+    await this.storage.remove('heroAbilities');
+    await this.storage.remove('items');
   }
 
   private incrementCounter() {

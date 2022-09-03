@@ -98,4 +98,8 @@ export class SearchTabComponent implements OnInit {
         );
     }
 
+    checkUpdates() {
+        this.navCtrl.navigateRoot(routes.fetch);
+    }
+
 }
